@@ -58,6 +58,8 @@ pipeline {
         stage('Remote Docker Build & Deploy') {
             steps {
                 sshagent (credentials: [env.SSH_CREDENTIALS_ID]) {
+                    //// 'ENDSSH' 이후부터 ENDSSH까지는 좌측으로 공백없이 사용해야 오류 발생하지 않음.
+                    //// 리눅스/유닉스 셸에서 << END 구문은 Heredoc이라고 불리며, 다음과 같이 동작합니다
                     sh """
                         ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${REMOTE_USER}@${REMOTE_HOST} << 'ENDSSH'
 cd ${REMOTE_DIR} || exit 1
